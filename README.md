@@ -4,6 +4,35 @@ Hệ thống IT Helpdesk ứng dụng AI/Hybrid RAG hỗ trợ phân tích nguy�
 
 ---
 
+## 🏗️ System Architecture
+
+Hệ thống AI IT Helpdesk được thiết kế theo kiến trúc tách rời (decoupled architecture) với quy trình **Human-in-the-Loop**: Kỹ thuật viên kiểm tra kết quả phân tích AI và xác thực bằng chứng (evidence/citations) trước khi phản hồi người dùng.
+
+```mermaid
+flowchart TD
+    User["User (Frontend)"]
+    Backend["FastAPI Backend"]
+    Engine{"AI Inference\nEngine"}
+
+    Retrieval["Evidence Retrieval\n(Hybrid BM25 + BGE-M3)"]
+    Reranking["Relevance Reranking\n(BGE-Reranker-Large)"]
+    Generative["Generative RCA\n(Ollama / Local LLM)"]
+    Technician["Technician Review\n& Human Verification"]
+
+    User -->|"Submits Issue"| Backend
+    Backend -->|"Text Processing & RBAC Scope"| Engine
+
+    Engine -->|"Hybrid Retrieval"| Retrieval
+    Engine -->|"Cross-Encoder"| Reranking
+    Engine -->|"Root Cause Analysis"| Generative
+
+    Retrieval & Reranking -->|"Grounded Context"| Generative
+    Generative -->|"Draft RCA & Citations"| Technician
+    Technician -->|"Verified Response & Resolution"| User
+```
+
+---
+
 ## 1. Cấu trúc cổng dịch vụ
 
 | Dịch vụ | Địa chỉ | Ghi chú |
