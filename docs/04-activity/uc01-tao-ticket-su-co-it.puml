@@ -1,0 +1,32 @@
+@startuml UC01_Tao_Ticket
+title UC01 - Tạo ticket sự cố IT
+start
+|Người dùng|
+:Chọn tạo ticket mới;
+|Hệ thống|
+:Hiển thị biểu mẫu;
+|Người dùng|
+:Nhập tiêu đề, mô tả, service,
+impact, urgency, file/log;
+:Gửi ticket;
+|Hệ thống|
+:Kiểm tra dữ liệu đầu vào;
+if (Hợp lệ?) then (không)
+  :Hiển thị lỗi tại trường tương ứng;
+  |Người dùng|
+  :Sửa và gửi lại;
+  stop
+else (có)
+  :Đề xuất priority
+  theo impact × urgency;
+  if (Lưu thành công?) then (không)
+    :Báo lỗi, ghi log hệ thống;
+    stop
+  else (có)
+    :Lưu ticket với trạng thái New;
+    :Ghi audit log;
+    :Hiển thị mã ticket;
+  endif
+endif
+stop
+@enduml

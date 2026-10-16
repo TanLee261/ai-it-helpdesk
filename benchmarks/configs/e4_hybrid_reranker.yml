@@ -1,0 +1,16 @@
+experiment: e4_hybrid_reranker
+retrieval_method: hybrid_rerank
+dense_model: BAAI/bge-m3
+reranker_model: BAAI/bge-reranker-v2-m3
+candidate_k: 100
+rerank_k: 10
+output_top_k: 10
+rrf_k: 60
+tuned_on: v2_dev
+evaluated_on: v2_test
+rewrite_ablation:
+  - false
+  - true
+evidence_sources:
+  - historical_ticket
+  - runbook

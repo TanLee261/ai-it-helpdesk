@@ -1,0 +1,8 @@
+incident_id,category,service,ticket_id,split,evidence_sufficiency,sufficiency_rationale,model_status,probable_root_cause,rca_correct,fact_count,unsupported_fact_count,review_notes
+INC-0010,network,endpoint-device,TCK-00024,test,unreviewed,,,,,,,
+INC-0015,network,vpn-gateway,TCK-00364,test,unreviewed,,,,,,,
+INC-0021,server_api,auth-service,TCK-00017,test,unreviewed,,,,,,,
+INC-0024,server_api,auth-service,TCK-00022,test,unreviewed,,,,,,,
+INC-0040,database,backup-service,TCK-00995,test,unreviewed,,,,,,,
+INC-0045,database,primary-db,TCK-00193,test,unreviewed,,,,,,,
+INC-0047,database,reporting-db,TCK-00036,test,unreviewed,,,,,,,

@@ -1,0 +1,37 @@
+@startuml UC07_Phe_Duyet
+title UC07 - Phê duyệt hoặc từ chối hành động đề xuất
+start
+|Kỹ thuật viên / Trưởng nhóm|
+:Mở danh sách proposed actions;
+|Hệ thống|
+:Hiển thị hành động và mức rủi ro;
+|Kỹ thuật viên / Trưởng nhóm|
+:Chọn một hành động;
+|Hệ thống|
+if (Có quyền phê duyệt?) then (không)
+  :Từ chối và ghi audit log;
+  stop
+else (có)
+  if (Hành động đã có quyết định?) then (có)
+    :Báo trạng thái hiện tại,
+    không ghi đè;
+    stop
+  else (không)
+    if (Rủi ro cao?) then (có)
+      :Yêu cầu xác nhận bổ sung;
+    endif
+  endif
+endif
+|Kỹ thuật viên / Trưởng nhóm|
+if (Quyết định) then (Approve)
+  :Nhập lý do và approve;
+else (Reject)
+  :Nhập lý do và reject;
+endif
+|Hệ thống|
+:Lưu approval record;
+:Ghi audit log;
+:Cập nhật trạng thái
+(chỉ ghi nhận, không thực thi lệnh);
+stop
+@enduml

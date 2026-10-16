@@ -1,0 +1,992 @@
+[
+  {
+    "document_id": "RB-NET-001",
+    "title": "Kiem tra endpoint device va printer gap loi",
+    "service": "endpoint-device",
+    "category": "network",
+    "match_keywords": ["printer", "print", "laptop", "monitor", "keyboard", "mouse", "hardware", "touchscreen"],
+    "symptoms": [
+      "Endpoint device hoac printer gap loi lam gian doan cong viec.",
+      "Nguoi dung gap loi phan cung nhu laptop, monitor, keyboard, mouse hoac printer.",
+      "Loi co the lap lai tren mot thiet bi hoac mot nhom nguoi dung."
+    ],
+    "required_evidence": [
+      "Ticket co noi dung lien quan den endpoint device, printer hoac hardware malfunction.",
+      "Log he dieu hanh, device event log hoac print service trong thoi diem su co.",
+      "Thong tin device model, hostname, IP neu co va trang thai ket noi cua thiet bi."
+    ],
+    "verification_steps": [
+      "Xac dinh thiet bi nao va nguoi dung/nhom nguoi dung nao bi anh huong.",
+      "Kiem tra device event log, driver/firmware va trang thai ket noi cua thiet bi.",
+      "Neu la printer, kiem tra IP, DHCP lease, DNS record va print queue.",
+      "Neu la laptop/monitor/peripheral, kiem tra loi driver, overheating, cable hoac device health.",
+      "Xac minh loi con xay ra sau khi cap nhat cau hinh/driver hoac thay the thiet bi tam thoi."
+    ],
+    "proposed_actions": [
+      "De xuat cap nhat driver/firmware neu co bang chung loi phien ban.",
+      "Neu la printer mat ket noi, de xuat DHCP reservation hoac cap nhat DNS/hostname.",
+      "De xuat thay the thiet bi tam thoi neu loi phan cung anh huong cong viec khan cap."
+    ],
+    "escalation": [
+      "Escalate office IT neu thiet bi can kiem tra phan cung.",
+      "Escalate network team neu printer hoac endpoint bi loi DHCP/DNS/ket noi."
+    ]
+  },
+  {
+    "document_id": "RB-NET-002",
+    "title": "Kiem tra loi truy cap shared network drive",
+    "service": "file-server",
+    "category": "network",
+    "match_keywords": ["shared network drive", "shared drive", "network drive", "permission errors", "folder access"],
+    "symptoms": [
+      "Nguoi dung khong truy cap duoc thu muc chia se.",
+      "He thong bao permission error hoac access denied.",
+      "Loi co the xay ra sau khi thay doi nhom quyen."
+    ],
+    "required_evidence": [
+      "Ticket mo ta duong dan shared drive va nguoi dung bi anh huong.",
+      "Audit log quyen truy cap file server neu co.",
+      "Thong tin group membership cua nguoi dung."
+    ],
+    "verification_steps": [
+      "Xac dinh duong dan shared drive va tai khoan nguoi dung gap loi.",
+      "Kiem tra nguoi dung co nam trong group duoc cap quyen khong.",
+      "Kiem tra ACL cua thu muc va chinh sach inheritance.",
+      "Kiem tra log file server trong thoi diem nguoi dung bi tu choi truy cap.",
+      "Xac minh lai bang tai khoan test hoac yeu cau nguoi dung thu lai sau khi cap nhat quyen."
+    ],
+    "proposed_actions": [
+      "Cap nhat group membership neu yeu cau hop le va duoc phe duyet.",
+      "Sua ACL neu cau hinh sai so voi chinh sach.",
+      "Thong bao nguoi dung dang xuat/dang nhap lai neu token quyen cu chua cap nhat."
+    ],
+    "escalation": [
+      "Escalate IAM/admin neu can thay doi nhom quyen quan trong.",
+      "Escalate storage team neu file server khong phan hoi."
+    ]
+  },
+  {
+    "document_id": "RB-NET-003",
+    "title": "Kiem tra DNS resolution failure",
+    "service": "dns-service",
+    "category": "network",
+    "match_keywords": ["dns", "resolver", "name resolution", "cannot resolve", "domain"],
+    "symptoms": [
+      "Ung dung hoac nguoi dung khong resolve duoc hostname.",
+      "Ket noi fail nhung IP dich van hoat dong.",
+      "Log co thong bao DNS timeout hoac resolver failure."
+    ],
+    "required_evidence": [
+      "Hostname bi loi va thoi diem xay ra.",
+      "Ket qua nslookup/dig tu client va tu server.",
+      "Log DNS resolver neu co."
+    ],
+    "verification_steps": [
+      "Kiem tra hostname bi anh huong va pham vi nguoi dung/service bi loi.",
+      "So sanh ket qua resolve tu nhieu resolver khac nhau.",
+      "Kiem tra TTL, DNS record gan nhat va thay doi cau hinh.",
+      "Kiem tra log resolver de tim timeout, SERVFAIL hoac NXDOMAIN bat thuong.",
+      "Xac minh ket noi bang IP de tach loi DNS khoi loi network khac."
+    ],
+    "proposed_actions": [
+      "Sua DNS record neu gia tri sai.",
+      "Chuyen sang resolver du phong neu resolver chinh loi.",
+      "Giam TTL tam thoi khi can propagate thay doi nhanh."
+    ],
+    "escalation": [
+      "Escalate network/DNS admin neu resolver loi dien rong.",
+      "Escalate service owner neu DNS record do ung dung quan ly."
+    ]
+  },
+  {
+    "document_id": "RB-NET-004",
+    "title": "Kiem tra VPN khong ket noi",
+    "service": "vpn-gateway",
+    "category": "network",
+    "match_keywords": ["vpn", "remote access", "cannot connect", "connection failed", "remote work"],
+    "symptoms": [
+      "Nguoi dung remote khong ket noi duoc VPN.",
+      "VPN client bao authentication failed hoac timeout.",
+      "Chi mot nhom nguoi dung hoac toan bo nguoi dung bi anh huong."
+    ],
+    "required_evidence": [
+      "Thong bao loi tren VPN client.",
+      "Log authentication cua VPN gateway.",
+      "Trang thai gateway va so phien ket noi hien tai."
+    ],
+    "verification_steps": [
+      "Xac dinh loi xay ra voi mot nguoi dung hay nhieu nguoi dung.",
+      "Kiem tra tai khoan, MFA va group VPN cua nguoi dung.",
+      "Kiem tra log VPN gateway theo username va thoi diem.",
+      "Kiem tra capacity, certificate va trang thai gateway.",
+      "Thu ket noi bang tai khoan test neu chinh sach cho phep."
+    ],
+    "proposed_actions": [
+      "Reset cau hinh VPN client neu chi mot may bi anh huong.",
+      "Mo khoa/cap nhat group truy cap neu co phe duyet.",
+      "Chuyen sang gateway du phong neu gateway chinh loi."
+    ],
+    "escalation": [
+      "Escalate IAM neu loi lien quan den tai khoan/MFA.",
+      "Escalate network team neu gateway hoac certificate loi."
+    ]
+  },
+  {
+    "document_id": "RB-NET-005",
+    "title": "Kiem tra gateway timeout",
+    "service": "edge-gateway",
+    "category": "network",
+    "match_keywords": ["gateway timeout", "504", "timeout", "edge gateway", "upstream timeout"],
+    "symptoms": [
+      "Nguoi dung nhan loi gateway timeout.",
+      "Request qua gateway mat nhieu thoi gian hoac tra ve 504.",
+      "Upstream service co the cham hoac khong phan hoi."
+    ],
+    "required_evidence": [
+      "Log gateway theo request ID hoac trace ID.",
+      "Latency cua upstream service.",
+      "Trang thai health check cua upstream."
+    ],
+    "verification_steps": [
+      "Kiem tra ti le 504 theo service va endpoint.",
+      "Doi chieu log gateway voi log upstream trong cung time window.",
+      "Kiem tra health check va connection timeout cau hinh tren gateway.",
+      "Kiem tra latency p95/p99 cua upstream.",
+      "Xac minh loi co bien mat khi route sang upstream khoe manh khong."
+    ],
+    "proposed_actions": [
+      "Loai upstream unhealthy khoi pool neu co bang chung.",
+      "Dieu chinh timeout chi sau khi xac minh loi do latency hop le.",
+      "Escalate service owner neu upstream khong phan hoi."
+    ],
+    "escalation": [
+      "Escalate platform/network neu gateway loi.",
+      "Escalate team so huu upstream neu latency bat thuong."
+    ]
+  },
+  {
+    "document_id": "RB-NET-006",
+    "title": "Kiem tra packet loss cao",
+    "service": "edge-gateway",
+    "category": "network",
+    "match_keywords": ["packet loss", "dropped packet", "unstable network", "intermittent connection"],
+    "symptoms": [
+      "Ket noi chap chon hoac bi ngat quang.",
+      "Nguoi dung bao ung dung luc duoc luc khong.",
+      "Metric network packet loss tang cao."
+    ],
+    "required_evidence": [
+      "Metric packet loss theo host/subnet.",
+      "Ket qua ping/traceroute/mtr neu co.",
+      "Log network device hoac gateway trong thoi diem su co."
+    ],
+    "verification_steps": [
+      "Xac dinh subnet, site hoac host bi anh huong.",
+      "Kiem tra packet loss tu nhieu diem do khac nhau.",
+      "Kiem tra interface error/drop tren gateway hoac switch.",
+      "Doi chieu voi thay doi network gan nhat.",
+      "Xac minh packet loss giam sau khi route/duong truyen du phong duoc kich hoat."
+    ],
+    "proposed_actions": [
+      "Chuyen traffic sang duong truyen du phong neu co bang chung mat goi.",
+      "Giam tai hoac tach luong traffic neu interface bi qua tai.",
+      "Mo ticket voi nha cung cap neu mat goi nam ngoai mang noi bo."
+    ],
+    "escalation": [
+      "Escalate network team neu mat goi dien rong.",
+      "Escalate ISP/vendor neu loi nam tren duong truyen ngoai."
+    ]
+  },
+  {
+    "document_id": "RB-NET-007",
+    "title": "Kiem tra firewall rule chan traffic",
+    "service": "edge-gateway",
+    "category": "network",
+    "match_keywords": ["firewall", "blocked", "deny", "access denied", "port blocked"],
+    "symptoms": [
+      "Service khong ket noi duoc den dich du kien.",
+      "Log firewall co hanh dong deny/drop.",
+      "Loi xuat hien sau thay doi rule hoac segmentation."
+    ],
+    "required_evidence": [
+      "Nguon, dich, port va protocol bi anh huong.",
+      "Firewall logs trong time window.",
+      "Change record gan nhat lien quan den firewall."
+    ],
+    "verification_steps": [
+      "Xac dinh luong traffic can cho phep gom source, destination, port, protocol.",
+      "Kiem tra firewall log co deny/drop trung voi traffic do khong.",
+      "Kiem tra rule order va rule moi thay doi gan day.",
+      "Thu ket noi bang cong cu an toan tu moi truong test.",
+      "Xac minh rule de xuat khong mo rong quyen qua muc can thiet."
+    ],
+    "proposed_actions": [
+      "De xuat cap nhat rule toi thieu can thiet sau khi duoc phe duyet.",
+      "Rollback rule moi neu change gan nhat gay su co.",
+      "Them monitoring cho deny count neu su co lap lai."
+    ],
+    "escalation": [
+      "Escalate security/network neu can thay doi firewall production.",
+      "Escalate service owner de xac nhan port/protocol hop le."
+    ]
+  },
+  {
+    "document_id": "RB-NET-008",
+    "title": "Kiem tra load balancer health check fail",
+    "service": "load-balancer",
+    "category": "network",
+    "match_keywords": ["load balancer", "health check", "unhealthy", "backend pool", "target unhealthy"],
+    "symptoms": [
+      "Mot hoac nhieu backend bi danh dau unhealthy.",
+      "Traffic phan phoi khong deu hoac service bi giam cong suat.",
+      "Nguoi dung gap loi khi request vao endpoint qua load balancer."
+    ],
+    "required_evidence": [
+      "Trang thai target/backend trong load balancer.",
+      "Log health check va status code tra ve.",
+      "Metric request count va error rate theo target."
+    ],
+    "verification_steps": [
+      "Kiem tra backend nao bi unhealthy va tu luc nao.",
+      "Kiem tra endpoint health check co tra ve status mong doi khong.",
+      "Doi chieu log ung dung tren backend bi unhealthy.",
+      "Kiem tra cau hinh path, port, timeout va threshold health check.",
+      "Xac minh backend khoe manh tro lai truoc khi dua vao pool."
+    ],
+    "proposed_actions": [
+      "Tam thoi loai target unhealthy khoi pool neu anh huong nguoi dung.",
+      "Sua cau hinh health check neu path/port sai.",
+      "Restart backend chi khi co phe duyet va co bang chung can thiet."
+    ],
+    "escalation": [
+      "Escalate platform team neu load balancer cau hinh sai.",
+      "Escalate service owner neu ung dung health endpoint loi."
+    ]
+  },
+  {
+    "document_id": "RB-NET-009",
+    "title": "Kiem tra TLS certificate expired",
+    "service": "edge-gateway",
+    "category": "network",
+    "match_keywords": ["certificate", "TLS", "SSL", "expired", "handshake"],
+    "symptoms": [
+      "Client bao loi certificate expired hoac TLS handshake failed.",
+      "Trinh duyet hien canh bao bao mat.",
+      "Service qua HTTPS khong truy cap duoc."
+    ],
+    "required_evidence": [
+      "Ten mien bi anh huong.",
+      "Thong tin certificate hien tai va ngay het han.",
+      "Log gateway/proxy ve TLS handshake neu co."
+    ],
+    "verification_steps": [
+      "Kiem tra certificate chain cua domain bi anh huong.",
+      "Xac minh ngay het han va issuer cua certificate.",
+      "Kiem tra certificate da duoc deploy dung tren tat ca gateway/proxy chua.",
+      "Kiem tra log TLS handshake de tim loi chain hoac hostname mismatch.",
+      "Xac minh lai bang client sau khi certificate duoc cap nhat."
+    ],
+    "proposed_actions": [
+      "Gia han va deploy certificate moi theo quy trinh duoc phe duyet.",
+      "Rollback sang certificate hop le neu deploy sai.",
+      "Them canh bao het han certificate neu chua co."
+    ],
+    "escalation": [
+      "Escalate security/platform neu can cap certificate production.",
+      "Escalate domain owner neu certificate thieu SAN hoac hostname."
+    ]
+  },
+  {
+    "document_id": "RB-NET-010",
+    "title": "Kiem tra proxy timeout",
+    "service": "proxy-service",
+    "category": "network",
+    "match_keywords": ["proxy", "proxy timeout", "upstream timed out", "connect timeout"],
+    "symptoms": [
+      "Request qua proxy bi timeout.",
+      "Proxy log co upstream timed out hoac connect timeout.",
+      "Loi chi xay ra voi mot endpoint hoac upstream cu the."
+    ],
+    "required_evidence": [
+      "Proxy access/error logs.",
+      "Endpoint/upstream bi anh huong.",
+      "Latency va error rate cua upstream."
+    ],
+    "verification_steps": [
+      "Xac dinh endpoint va upstream bi timeout.",
+      "Kiem tra proxy log theo request ID neu co.",
+      "Doi chieu latency cua upstream trong cung time window.",
+      "Kiem tra cau hinh proxy timeout, keepalive va connection pool.",
+      "Xac minh loi bien mat khi upstream phan hoi on dinh."
+    ],
+    "proposed_actions": [
+      "De xuat dieu chinh timeout chi khi co bang chung upstream can them thoi gian hop ly.",
+      "Kiem tra va toi uu upstream neu latency tang bat thuong.",
+      "Them alert cho proxy timeout rate."
+    ],
+    "escalation": [
+      "Escalate platform team neu proxy cau hinh sai.",
+      "Escalate upstream service owner neu service cham."
+    ]
+  },
+  {
+    "document_id": "RB-API-001",
+    "title": "Kiem tra HTTP 500 tren payment-api",
+    "service": "payment-api",
+    "category": "server_api",
+    "match_keywords": ["500", "HTTP 500", "internal error", "payment", "checkout"],
+    "symptoms": [
+      "Nguoi dung khong hoan tat thanh toan.",
+      "Payment API tra HTTP 500.",
+      "Latency va error rate co the tang trong time window su co."
+    ],
+    "required_evidence": [
+      "Log ERROR cua payment-api theo trace_id neu co.",
+      "Metric error_rate va latency_p95.",
+      "Metric db_pool_usage hoac dependency health neu loi lien quan database."
+    ],
+    "verification_steps": [
+      "Kiem tra ti le HTTP 500 theo endpoint va time window.",
+      "Loc log ERROR cua payment-api theo trace_id hoac request ID.",
+      "Kiem tra latency_p95 va error_rate co tang dong thoi khong.",
+      "Kiem tra dependency nhu customer-db, auth-service va payment provider.",
+      "Kiem tra deployment/config gan nhat co trung thoi diem loi khong."
+    ],
+    "proposed_actions": [
+      "Rollback deployment gan nhat neu co bang chung lien quan va duoc phe duyet.",
+      "Giam traffic hoac bat degraded mode neu anh huong dien rong.",
+      "Mo incident neu loi anh huong thanh toan production."
+    ],
+    "escalation": [
+      "Escalate backend lead neu loi keo dai qua 15 phut.",
+      "Escalate DBA neu bang chung chi ra loi database."
+    ]
+  },
+  {
+    "document_id": "RB-API-002",
+    "title": "Kiem tra API latency p95 tang cao",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["slow", "latency", "p95", "response time", "performance"],
+    "symptoms": [
+      "Nguoi dung bao ung dung phan hoi cham.",
+      "Metric latency_p95 tang cao so voi baseline.",
+      "Request co the timeout khi tai tang."
+    ],
+    "required_evidence": [
+      "Metric latency_p95/p99 theo endpoint.",
+      "Request count va error rate trong time window.",
+      "Log slow request neu co."
+    ],
+    "verification_steps": [
+      "Xac dinh endpoint nao co latency tang cao.",
+      "So sanh latency voi baseline cung khung gio.",
+      "Kiem tra request volume co tang bat thuong khong.",
+      "Doi chieu log ung dung de tim dependency cham.",
+      "Kiem tra CPU, memory va database latency neu co."
+    ],
+    "proposed_actions": [
+      "Giam tai endpoint bi anh huong neu co co che rate limit.",
+      "Toi uu query/dependency cham sau khi xac minh.",
+      "Scale service neu tai tang hop le va duoc phe duyet."
+    ],
+    "escalation": [
+      "Escalate service owner neu endpoint cham ro rang.",
+      "Escalate platform team neu ha tang tai cao."
+    ]
+  },
+  {
+    "document_id": "RB-API-003",
+    "title": "Kiem tra service crash loop",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["crash", "crashes", "crash loop", "restart", "app crashes"],
+    "symptoms": [
+      "Service khoi dong lai lien tuc.",
+      "Nguoi dung gap loi ngat quang.",
+      "Log co stack trace hoac exit code bat thuong."
+    ],
+    "required_evidence": [
+      "Log truoc thoi diem service restart.",
+      "So lan restart trong time window.",
+      "Metric memory_usage va cpu_usage."
+    ],
+    "verification_steps": [
+      "Kiem tra so lan restart va thoi diem bat dau crash loop.",
+      "Doc log ngay truoc moi lan restart de tim exception.",
+      "Kiem tra memory_usage co dat gioi han khong.",
+      "Doi chieu voi deployment/config gan nhat.",
+      "Xac minh loi co lap lai tren mot instance hay tat ca instance."
+    ],
+    "proposed_actions": [
+      "Rollback version moi neu crash bat dau sau release.",
+      "Tang memory limit chi khi co bang chung OOM va duoc phe duyet.",
+      "Tam thoi loai instance loi khoi load balancer."
+    ],
+    "escalation": [
+      "Escalate backend team neu stack trace thuoc code ung dung.",
+      "Escalate platform team neu crash do runtime/ha tang."
+    ]
+  },
+  {
+    "document_id": "RB-API-004",
+    "title": "Kiem tra deployment loi sau release",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["deployment", "release", "after deploy", "new version", "rollback"],
+    "symptoms": [
+      "Loi xuat hien ngay sau release.",
+      "Error rate tang sau khi deploy version moi.",
+      "Mot so instance chay version moi co loi nhieu hon."
+    ],
+    "required_evidence": [
+      "Thoi diem deployment va version moi.",
+      "Metric error_rate truoc/sau deploy.",
+      "Log ung dung tren instance version moi."
+    ],
+    "verification_steps": [
+      "Xac dinh version duoc deploy va thoi diem deploy.",
+      "So sanh error_rate truoc va sau deployment.",
+      "Kiem tra log cua instance chay version moi.",
+      "Xac minh database migration/config change co di kem release khong.",
+      "Kiem tra canary hoac mot phan traffic co bi anh huong truoc khong."
+    ],
+    "proposed_actions": [
+      "Rollback version neu co bang chung release gay loi va duoc phe duyet.",
+      "Dung rollout neu canary dang loi.",
+      "Mo postmortem neu release gay incident nghiem trong."
+    ],
+    "escalation": [
+      "Escalate release owner neu can rollback.",
+      "Escalate incident commander neu loi production dien rong."
+    ]
+  },
+  {
+    "document_id": "RB-API-005",
+    "title": "Kiem tra memory usage cao",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["memory", "out of memory", "OOM", "memory usage", "heap"],
+    "symptoms": [
+      "Memory usage tang cao hoac cham cham tang theo thoi gian.",
+      "Service bi OOM kill hoac crash.",
+      "Latency tang khi memory gan gioi han."
+    ],
+    "required_evidence": [
+      "Metric memory_usage theo instance.",
+      "Log OOM kill hoac heap error neu co.",
+      "Thoi diem deployment va traffic volume."
+    ],
+    "verification_steps": [
+      "Kiem tra memory_usage theo tung instance trong time window.",
+      "Tim log OOM hoac GC/heap warning.",
+      "Doi chieu memory trend voi traffic va deployment gan nhat.",
+      "Kiem tra memory tang lien tuc co dau hieu leak khong.",
+      "Xac minh loi xay ra tren mot instance hay toan bo service."
+    ],
+    "proposed_actions": [
+      "Restart instance chi khi duoc phe duyet va co ke hoach giam anh huong.",
+      "Tang memory limit tam thoi neu can duy tri dich vu va duoc phe duyet.",
+      "Mo task dieu tra memory leak neu trend bat thuong lap lai."
+    ],
+    "escalation": [
+      "Escalate backend team neu nghi ngo memory leak.",
+      "Escalate platform team neu resource limit cau hinh sai."
+    ]
+  },
+  {
+    "document_id": "RB-API-006",
+    "title": "Kiem tra CPU usage cao",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["cpu", "high cpu", "cpu utilization", "load average"],
+    "symptoms": [
+      "CPU usage tang cao trong thoi gian dai.",
+      "Latency tang va throughput giam.",
+      "Service co the bi timeout du khong loi code ro rang."
+    ],
+    "required_evidence": [
+      "Metric cpu_usage theo host/instance.",
+      "Request rate va endpoint co traffic cao.",
+      "Log ung dung hoac profiler neu co."
+    ],
+    "verification_steps": [
+      "Xac dinh instance nao co CPU cao.",
+      "So sanh CPU voi request rate de xem tai tang hop le khong.",
+      "Kiem tra endpoint nao chiem nhieu request hoac xu ly cham.",
+      "Kiem tra deployment gan nhat co lam CPU tang khong.",
+      "Xac minh CPU giam sau khi traffic giam hoac scale out."
+    ],
+    "proposed_actions": [
+      "Scale out service neu tai tang hop le va duoc phe duyet.",
+      "Bat rate limit neu traffic bat thuong.",
+      "Mo investigation neu CPU cao do loop/bug."
+    ],
+    "escalation": [
+      "Escalate platform team neu can scale capacity.",
+      "Escalate backend team neu CPU cao do code path bat thuong."
+    ]
+  },
+  {
+    "document_id": "RB-API-007",
+    "title": "Kiem tra request timeout",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["request timeout", "timeout", "timed out", "deadline exceeded"],
+    "symptoms": [
+      "Client bao request timeout.",
+      "Log co deadline exceeded hoac upstream timeout.",
+      "Latency p95/p99 tang trong time window."
+    ],
+    "required_evidence": [
+      "Trace ID hoac request ID bi timeout.",
+      "Log service va upstream dependency.",
+      "Metric latency_p95/p99 va error_rate."
+    ],
+    "verification_steps": [
+      "Xac dinh endpoint va dependency trong request timeout.",
+      "Doi chieu log theo trace ID qua cac service.",
+      "Kiem tra dependency nao phan hoi cham nhat.",
+      "Kiem tra timeout config co thay doi gan day khong.",
+      "Xac minh loi do service chinh hay dependency."
+    ],
+    "proposed_actions": [
+      "Toi uu dependency cham sau khi xac minh.",
+      "Dieu chinh timeout chi khi co ly do ky thuat va duoc phe duyet.",
+      "Giam tai hoac queue request neu dependency qua tai."
+    ],
+    "escalation": [
+      "Escalate dependency owner neu upstream cham.",
+      "Escalate backend lead neu timeout do luong xu ly noi bo."
+    ]
+  },
+  {
+    "document_id": "RB-API-008",
+    "title": "Kiem tra authentication service loi",
+    "service": "auth-service",
+    "category": "server_api",
+    "match_keywords": ["login", "authentication", "auth", "token", "password", "MFA"],
+    "symptoms": [
+      "Nguoi dung khong dang nhap duoc.",
+      "Token khong duoc cap hoac bi tu choi.",
+      "Loi co the lien quan MFA, password hoac auth dependency."
+    ],
+    "required_evidence": [
+      "Log auth-service theo username/request ID da redact.",
+      "Metric login_error_rate.",
+      "Trang thai dependency nhu identity provider hoac database."
+    ],
+    "verification_steps": [
+      "Xac dinh loi anh huong mot nguoi dung hay nhieu nguoi dung.",
+      "Kiem tra auth log theo thoi diem va ma loi.",
+      "Kiem tra login_error_rate co tang bat thuong khong.",
+      "Kiem tra identity provider/MFA co su co dong thoi khong.",
+      "Xac minh tai khoan co bi lock hoac thieu quyen khong."
+    ],
+    "proposed_actions": [
+      "Huong dan reset password/MFA neu chi mot user bi anh huong.",
+      "Mo incident neu auth-service loi dien rong.",
+      "Rollback auth config neu loi sau thay doi va duoc phe duyet."
+    ],
+    "escalation": [
+      "Escalate IAM team neu loi lien quan tai khoan/MFA.",
+      "Escalate auth-service owner neu service loi."
+    ]
+  },
+  {
+    "document_id": "RB-API-009",
+    "title": "Kiem tra dependency service unavailable",
+    "service": "notification-api",
+    "category": "server_api",
+    "match_keywords": ["dependency", "service unavailable", "503", "upstream unavailable", "external service"],
+    "symptoms": [
+      "Service tra 503 hoac bao dependency unavailable.",
+      "Mot chuc nang phu thuoc service khac bi loi.",
+      "Log co upstream unavailable hoac connection refused."
+    ],
+    "required_evidence": [
+      "Log service goi dependency.",
+      "Health check cua dependency.",
+      "Metric error_rate theo dependency."
+    ],
+    "verification_steps": [
+      "Xac dinh dependency nao bi unavailable.",
+      "Kiem tra health check va error_rate cua dependency.",
+      "Doi chieu log cua service goi va service dependency.",
+      "Kiem tra network/firewall thay doi gan nhat neu connection refused.",
+      "Xac minh fallback/degraded mode co hoat dong khong."
+    ],
+    "proposed_actions": [
+      "Bat degraded mode neu chuc nang phu co the tam thoi giam cap.",
+      "Retry/backoff theo chinh sach neu dependency loi tam thoi.",
+      "Escalate dependency owner neu service khong phuc hoi."
+    ],
+    "escalation": [
+      "Escalate dependency team neu dependency down.",
+      "Escalate incident commander neu dependency anh huong nhieu service."
+    ]
+  },
+  {
+    "document_id": "RB-API-010",
+    "title": "Kiem tra rate limit bi vuot",
+    "service": "customer-api",
+    "category": "server_api",
+    "match_keywords": ["rate limit", "429", "too many requests", "quota", "throttle"],
+    "symptoms": [
+      "Client nhan HTTP 429 hoac thong bao quota exceeded.",
+      "Request rate tang bat thuong.",
+      "Mot client/API key co the gui qua nhieu request."
+    ],
+    "required_evidence": [
+      "Metric request_per_second theo client hoac endpoint.",
+      "Log 429/rate limit cua API gateway.",
+      "Thong tin quota hien tai va chinh sach rate limit."
+    ],
+    "verification_steps": [
+      "Xac dinh endpoint/client nao bi rate limit.",
+      "So sanh request rate voi quota duoc phep.",
+      "Kiem tra log gateway co ghi 429/too many requests khong.",
+      "Xac minh day la traffic hop le hay bat thuong.",
+      "Kiem tra thay doi gan day ve quota/rate limit policy."
+    ],
+    "proposed_actions": [
+      "Thong bao client giam tan suat request neu traffic khong hop le.",
+      "Tang quota chi khi co phe duyet va ly do ro rang.",
+      "Them canh bao neu request rate tang dot bien."
+    ],
+    "escalation": [
+      "Escalate API owner neu quota can thay doi.",
+      "Escalate security neu traffic co dau hieu abuse."
+    ]
+  },
+  {
+    "document_id": "RB-DB-001",
+    "title": "Kiem tra database connection pool exhausted",
+    "service": "primary-db",
+    "category": "database",
+    "match_keywords": ["connection pool", "pool exhausted", "too many connections", "database connection"],
+    "symptoms": [
+      "Ung dung khong lay duoc connection tu pool.",
+      "Latency tang va request timeout khi truy van database.",
+      "Log co thong bao connection pool exhausted."
+    ],
+    "required_evidence": [
+      "Log ung dung ve connection pool.",
+      "Metric db_pool_usage hoac active_connections.",
+      "Thong tin deployment/config gan nhat."
+    ],
+    "verification_steps": [
+      "Kiem tra db_pool_usage co dat 100% trong time window khong.",
+      "Kiem tra active_connections va max_connections.",
+      "Doi chieu voi traffic va deployment gan nhat.",
+      "Kiem tra dau hieu connection leak.",
+      "Xac minh service nao su dung nhieu connection nhat."
+    ],
+    "proposed_actions": [
+      "Dieu chinh pool size chi khi co phe duyet.",
+      "Giam traffic hoac bat degraded mode neu anh huong dien rong.",
+      "Mo bug neu nghi ngo connection leak."
+    ],
+    "escalation": [
+      "Escalate DBA neu can thay doi database connection limit.",
+      "Escalate backend owner neu connection leak tu ung dung."
+    ]
+  },
+  {
+    "document_id": "RB-DB-002",
+    "title": "Kiem tra slow query",
+    "service": "reporting-db",
+    "category": "database",
+    "match_keywords": ["slow query", "query slow", "report slow", "long running query", "performance"],
+    "symptoms": [
+      "Bao cao hoac man hinh truy van du lieu tai cham.",
+      "Metric query duration tang cao.",
+      "Database log co long running query."
+    ],
+    "required_evidence": [
+      "Slow query log hoac query ID.",
+      "Metric query_duration_p95/p99.",
+      "Execution plan va thong tin index lien quan."
+    ],
+    "verification_steps": [
+      "Xac dinh query nao cham va bat dau tu luc nao.",
+      "Kiem tra execution plan de xem full scan hoac join ton kem.",
+      "Kiem tra index co phu hop voi dieu kien loc khong.",
+      "Doi chieu voi thay doi schema/data volume gan nhat.",
+      "Xac minh query cai thien sau khi toi uu tren moi truong an toan."
+    ],
+    "proposed_actions": [
+      "De xuat them index neu execution plan cho thay thieu index.",
+      "Toi uu query hoac pagination neu tra ve qua nhieu du lieu.",
+      "Chay thay doi schema chi sau khi duoc phe duyet."
+    ],
+    "escalation": [
+      "Escalate DBA neu can thay doi index/schema.",
+      "Escalate analytics/report owner neu query do bao cao sinh ra."
+    ]
+  },
+  {
+    "document_id": "RB-DB-003",
+    "title": "Kiem tra database lock",
+    "service": "primary-db",
+    "category": "database",
+    "match_keywords": ["lock", "blocked query", "waiting lock", "database lock", "lock wait"],
+    "symptoms": [
+      "Query bi treo do cho lock.",
+      "Transaction khac bi block trong thoi gian dai.",
+      "Ung dung timeout khi ghi du lieu."
+    ],
+    "required_evidence": [
+      "Danh sach blocking/blocked sessions.",
+      "Database log ve lock wait.",
+      "Query va transaction dang giu lock."
+    ],
+    "verification_steps": [
+      "Xac dinh session nao dang giu lock va session nao bi block.",
+      "Kiem tra transaction duration va query dang chay.",
+      "Doi chieu voi job batch hoac deployment gan nhat.",
+      "Danh gia rui ro truoc khi kill session.",
+      "Xac minh lock duoc giai phong va latency giam."
+    ],
+    "proposed_actions": [
+      "Lien he owner cua job/query dang giu lock.",
+      "Kill session chi khi duoc phe duyet va da danh gia rui ro.",
+      "Toi uu transaction de giam thoi gian giu lock."
+    ],
+    "escalation": [
+      "Escalate DBA neu lock anh huong dien rong.",
+      "Escalate application owner neu transaction do ung dung tao ra."
+    ]
+  },
+  {
+    "document_id": "RB-DB-004",
+    "title": "Kiem tra replication lag",
+    "service": "reporting-db",
+    "category": "database",
+    "match_keywords": ["replication lag", "replica lag", "stale data", "read replica"],
+    "symptoms": [
+      "Du lieu doc tu replica bi tre hoac khong cap nhat.",
+      "Metric replication_lag tang cao.",
+      "Bao cao hien du lieu cu."
+    ],
+    "required_evidence": [
+      "Metric replication_lag theo replica.",
+      "Log replication error neu co.",
+      "Thoi diem ghi tren primary va thoi diem replica bat kip."
+    ],
+    "verification_steps": [
+      "Kiem tra replication_lag tren tung replica.",
+      "Kiem tra log replication de tim loi network/disk/query.",
+      "Doi chieu lag voi traffic ghi hoac batch job gan day.",
+      "Kiem tra disk/cpu cua replica co bi qua tai khong.",
+      "Xac minh replica bat kip sau khi tai giam hoac loi duoc xu ly."
+    ],
+    "proposed_actions": [
+      "Tam thoi route read traffic sang replica khac neu co.",
+      "Giam batch job gay lag neu co phe duyet.",
+      "Scale replica neu tai doc/ghi tang hop le."
+    ],
+    "escalation": [
+      "Escalate DBA neu lag keo dai.",
+      "Escalate data/reporting team neu bao cao bi anh huong."
+    ]
+  },
+  {
+    "document_id": "RB-DB-005",
+    "title": "Kiem tra disk space database thap",
+    "service": "primary-db",
+    "category": "database",
+    "match_keywords": ["disk", "disk space", "storage full", "no space left", "database storage"],
+    "symptoms": [
+      "Database storage gan day hoac day.",
+      "Write operation that bai do khong con dung luong.",
+      "Alert disk_usage tang cao."
+    ],
+    "required_evidence": [
+      "Metric disk_usage va free_space.",
+      "Log database ve no space left hoac write failure.",
+      "Thong tin growth rate cua database."
+    ],
+    "verification_steps": [
+      "Kiem tra disk_usage hien tai va toc do tang.",
+      "Xac dinh bang/log/table space nao tang nhanh.",
+      "Kiem tra backup, WAL/binlog hoac temp files co tich tu khong.",
+      "Doi chieu voi batch job hoac import du lieu gan day.",
+      "Xac minh dung luong phuc hoi sau cleanup/scale."
+    ],
+    "proposed_actions": [
+      "Mo rong storage neu can va duoc phe duyet.",
+      "Don dep file tam/log cu theo chinh sach retention.",
+      "Tam dung job tao du lieu lon neu dang gay day disk."
+    ],
+    "escalation": [
+      "Escalate DBA neu storage production gan day.",
+      "Escalate infra team neu can mo rong volume."
+    ]
+  },
+  {
+    "document_id": "RB-DB-006",
+    "title": "Kiem tra deadlock",
+    "service": "primary-db",
+    "category": "database",
+    "match_keywords": ["deadlock", "deadlocked", "transaction deadlock", "serialization failure"],
+    "symptoms": [
+      "Ung dung gap loi deadlock hoac transaction rollback.",
+      "Mot so thao tac ghi that bai ngau nhien.",
+      "Database log co deadlock detected."
+    ],
+    "required_evidence": [
+      "Database deadlock log.",
+      "Transaction/query lien quan.",
+      "Thoi diem va endpoint phat sinh deadlock."
+    ],
+    "verification_steps": [
+      "Thu thap deadlock graph/log tu database.",
+      "Xac dinh cac query va bang lien quan.",
+      "Kiem tra thu tu lock trong cac transaction.",
+      "Doi chieu voi deployment hoac code path moi.",
+      "Xac minh retry policy cua ung dung co xu ly deadlock an toan khong."
+    ],
+    "proposed_actions": [
+      "De xuat chinh code de lock theo thu tu nhat quan.",
+      "Them retry co gioi han cho transaction phu hop.",
+      "Toi uu index/query de giam thoi gian giu lock."
+    ],
+    "escalation": [
+      "Escalate backend team neu deadlock do logic ung dung.",
+      "Escalate DBA neu can phan tich deadlock graph."
+    ]
+  },
+  {
+    "document_id": "RB-DB-007",
+    "title": "Kiem tra backup job fail",
+    "service": "backup-service",
+    "category": "database",
+    "match_keywords": ["backup", "backup failed", "snapshot failed", "restore point"],
+    "symptoms": [
+      "Backup job that bai hoac khong tao duoc snapshot.",
+      "Alert bao thieu restore point moi.",
+      "Log backup co loi quyen, dung luong hoac timeout."
+    ],
+    "required_evidence": [
+      "Log backup job.",
+      "Trang thai snapshot/restore point moi nhat.",
+      "Metric storage/capacity cua backup target."
+    ],
+    "verification_steps": [
+      "Kiem tra job nao fail va fail tu luc nao.",
+      "Doc log backup de xac dinh loi quyen, timeout hay storage.",
+      "Kiem tra backup target con du dung luong khong.",
+      "Xac minh credential/permission cua backup service.",
+      "Chay lai job theo quy trinh an toan neu duoc phe duyet."
+    ],
+    "proposed_actions": [
+      "Retry backup job sau khi khac phuc nguyen nhan.",
+      "Mo rong backup storage neu day va duoc phe duyet.",
+      "Cap nhat credential neu het han theo quy trinh bao mat."
+    ],
+    "escalation": [
+      "Escalate DBA neu backup cua database quan trong fail.",
+      "Escalate storage/security neu loi do storage hoac credential."
+    ]
+  },
+  {
+    "document_id": "RB-DB-008",
+    "title": "Kiem tra database unavailable",
+    "service": "primary-db",
+    "category": "database",
+    "match_keywords": ["database unavailable", "db unavailable", "connection refused", "database down"],
+    "symptoms": [
+      "Ung dung khong ket noi duoc database.",
+      "Log co connection refused hoac host unreachable.",
+      "Nhieu service phu thuoc cung loi."
+    ],
+    "required_evidence": [
+      "Database health check.",
+      "Log ket noi tu ung dung.",
+      "Metric CPU, memory, disk va network cua database host."
+    ],
+    "verification_steps": [
+      "Kiem tra database process/service co dang chay khong.",
+      "Kiem tra network tu ung dung den database endpoint.",
+      "Kiem tra resource cua database host.",
+      "Doi chieu voi maintenance hoac failover gan day.",
+      "Xac minh ket noi phuc hoi truoc khi dong incident."
+    ],
+    "proposed_actions": [
+      "Kich hoat failover theo runbook rieng neu database primary down va duoc phe duyet.",
+      "Khoi dong lai database service chi theo quy trinh DBA.",
+      "Thong bao cac service owner neu database anh huong dien rong."
+    ],
+    "escalation": [
+      "Escalate DBA ngay neu production database unavailable.",
+      "Escalate incident commander neu nhieu service bi anh huong."
+    ]
+  },
+  {
+    "document_id": "RB-DB-009",
+    "title": "Kiem tra missing index",
+    "service": "reporting-db",
+    "category": "database",
+    "match_keywords": ["missing index", "index", "full scan", "sequential scan", "table scan"],
+    "symptoms": [
+      "Query cham do full table scan.",
+      "Bao cao cham sau khi du lieu tang.",
+      "Execution plan khong su dung index phu hop."
+    ],
+    "required_evidence": [
+      "Execution plan cua query cham.",
+      "Thong tin column duoc loc/sap xep.",
+      "Metric query duration truoc/sau."
+    ],
+    "verification_steps": [
+      "Lay execution plan cua query bi anh huong.",
+      "Kiem tra co full scan tren bang lon khong.",
+      "Xac dinh dieu kien WHERE/JOIN/ORDER BY can index.",
+      "Kiem tra index hien co co bi trung lap hoac khong phu hop khong.",
+      "Thu index tren moi truong an toan truoc khi de xuat production."
+    ],
+    "proposed_actions": [
+      "De xuat tao index phu hop sau khi DBA xem xet.",
+      "Toi uu query neu index khong phai giai phap tot.",
+      "Theo doi query duration sau khi thay doi."
+    ],
+    "escalation": [
+      "Escalate DBA de danh gia index.",
+      "Escalate report owner neu query do bao cao sinh ra can toi uu."
+    ]
+  },
+  {
+    "document_id": "RB-DB-010",
+    "title": "Kiem tra connection timeout den database",
+    "service": "customer-db",
+    "category": "database",
+    "match_keywords": ["database timeout", "connection timeout", "connect timed out", "db timeout"],
+    "symptoms": [
+      "Ung dung timeout khi ket noi database.",
+      "Log co connect timed out hoac connection timeout.",
+      "Loi co the do network, pool hoac database qua tai."
+    ],
+    "required_evidence": [
+      "Log ket noi database tu ung dung.",
+      "Metric database CPU, connection count va network latency.",
+      "Firewall/network logs neu co."
+    ],
+    "verification_steps": [
+      "Xac dinh service nao ket noi database bi timeout.",
+      "Kiem tra database endpoint co reachable tu service khong.",
+      "Kiem tra connection count va CPU cua database.",
+      "Kiem tra firewall/security group thay doi gan nhat.",
+      "Doi chieu timeout voi traffic spike hoac deployment."
+    ],
+    "proposed_actions": [
+      "Sua network/firewall rule neu bi chan va duoc phe duyet.",
+      "Dieu chinh connection timeout/pool chi khi co bang chung.",
+      "Scale database hoac giam tai neu qua tai."
+    ],
+    "escalation": [
+      "Escalate DBA neu database qua tai.",
+      "Escalate network team neu ket noi bi chan hoac latency cao."
+    ]
+  }
+]

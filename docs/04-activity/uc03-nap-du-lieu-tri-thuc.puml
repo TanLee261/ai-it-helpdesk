@@ -1,0 +1,32 @@
+@startuml UC03_Nap_Tri_Thuc
+title UC03 - Nạp dữ liệu tri thức
+start
+|Admin / Kỹ thuật viên|
+:Chọn loại dữ liệu và tải file lên;
+|Hệ thống|
+:Kiểm tra định dạng và kích thước;
+if (Hợp lệ?) then (không)
+  :Báo lỗi định dạng;
+  stop
+else (có)
+  :Parse và chuẩn hóa dữ liệu;
+  :Redact dữ liệu nhạy cảm;
+  :Chia chunk và gắn metadata;
+  :Lưu file gốc vào File Storage;
+  :Lưu metadata vào PostgreSQL;
+  if (Đã tồn tại cùng version?) then (có)
+    :Bỏ qua phần trùng;
+  else (không)
+    fork
+      :Cập nhật keyword index;
+    fork again
+      :Tạo embedding và upsert Qdrant
+      (ID idempotent);
+    end fork
+  endif
+  :Ghi audit log;
+  :Hiển thị số chunk đã nạp
+  và số bản ghi bị loại;
+endif
+stop
+@enduml

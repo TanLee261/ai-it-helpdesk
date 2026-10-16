@@ -1,0 +1,28 @@
+@startuml UC06_Xem_Citation
+title UC06 - Xem citation và kiểm tra bằng chứng
+start
+|Kỹ thuật viên|
+:Mở báo cáo RCA;
+|Hệ thống|
+:Hiển thị danh sách citation;
+|Kỹ thuật viên|
+:Chọn một citation;
+|Hệ thống|
+if (Có quyền với access_scope?) then (không)
+  :Hiển thị "Không có quyền xem";
+  :Ghi audit log;
+  stop
+else (có)
+  :Lấy evidence và nguồn gốc;
+  if (Nguồn gốc đọc được?) then (không)
+    :Hiển thị bản đã lưu
+    kèm cảnh báo;
+  endif
+  :Hiển thị đoạn trích,
+  nguồn và liên kết;
+  :Ghi audit log;
+endif
+|Kỹ thuật viên|
+:Đối chiếu evidence với kết luận;
+stop
+@enduml

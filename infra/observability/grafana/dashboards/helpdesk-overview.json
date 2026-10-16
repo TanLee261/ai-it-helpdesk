@@ -1,0 +1,51 @@
+{
+  "annotations": {"list": []},
+  "editable": false,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "id": 1,
+      "targets": [{"expr": "sum by (route) (rate(helpdesk_http_requests_total[5m]))", "legendFormat": "{{route}}", "refId": "A"}],
+      "title": "API request rate by route",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "id": 2,
+      "targets": [{"expr": "histogram_quantile(0.95, sum by (le, route) (rate(helpdesk_http_request_duration_seconds_bucket[5m])))", "legendFormat": "p95 {{route}}", "refId": "A"}],
+      "title": "API latency p95",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "loki", "uid": "loki"},
+      "gridPos": {"h": 10, "w": 12, "x": 0, "y": 8},
+      "id": 3,
+      "targets": [{"expr": "{service=\"ai-it-helpdesk-api\"}", "refId": "A"}],
+      "title": "Helpdesk API logs",
+      "type": "logs"
+    },
+    {
+      "datasource": {"type": "loki", "uid": "loki"},
+      "gridPos": {"h": 10, "w": 12, "x": 12, "y": 8},
+      "id": 4,
+      "targets": [{"expr": "{source=\"helpdesk-readonly-import\"}", "refId": "A"}],
+      "title": "Imported operational logs",
+      "type": "logs"
+    }
+  ],
+  "refresh": "15s",
+  "schemaVersion": 39,
+  "tags": ["helpdesk", "observability"],
+  "time": {"from": "now-1h", "to": "now"},
+  "title": "AI IT Helpdesk - Local Observability",
+  "uid": "ai-it-helpdesk-observability",
+  "version": 1
+}

@@ -1,0 +1,36 @@
+@startuml UC02_Vong_Doi_Ticket
+title UC02 - Quản lý vòng đời ticket
+start
+|Kỹ thuật viên|
+:Mở danh sách ticket;
+|Hệ thống|
+:Hiển thị danh sách ticket;
+|Kỹ thuật viên|
+:Chọn một ticket;
+|Hệ thống|
+:Hiển thị chi tiết ticket;
+|Kỹ thuật viên|
+:Chọn trường cần cập nhật
+và xác nhận;
+|Hệ thống|
+if (Có quyền thực hiện?) then (không)
+  :Từ chối và ghi audit log;
+  stop
+else (có)
+  if (Chuyển trạng thái hợp lệ?) then (không)
+    :Báo lỗi, giữ nguyên trạng thái;
+    stop
+  else (có)
+    if (Ticket bị sửa bởi người khác?) then (có)
+      :Báo xung đột, yêu cầu tải lại;
+      stop
+    else (không)
+      :Lưu thay đổi;
+      :Ghi audit log
+      (người, thời điểm, giá trị cũ/mới);
+      :Hiển thị ticket đã cập nhật;
+    endif
+  endif
+endif
+stop
+@enduml

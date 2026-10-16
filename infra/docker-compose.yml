@@ -1,0 +1,133 @@
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: ai-it-helpdesk-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/ai_it_helpdesk
+      QDRANT_URL: http://qdrant:6333
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      ENV: ${ENV:-dev}
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+    container_name: ai-it-helpdesk-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-it-helpdesk-postgres
+    environment:
+      POSTGRES_DB: ai_it_helpdesk
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ai_it_helpdesk"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.0
+    container_name: ai-it-helpdesk-qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  prometheus:
+    image: prom/prometheus:v3.14.0
+    profiles: ["observability"]
+    depends_on:
+      - qdrant
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  loki:
+    image: grafana/loki:3.7.0
+    profiles: ["observability"]
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "127.0.0.1:3100:3100"
+    volumes:
+      - ./observability/loki-config.yaml:/etc/loki/local-config.yaml:ro
+      - loki_data:/loki
+    restart: unless-stopped
+
+  alloy:
+    image: grafana/alloy:v1.20.1
+    profiles: ["observability"]
+    depends_on:
+      - loki
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+    ports:
+      - "127.0.0.1:12345:12345"
+    volumes:
+      - ./observability/alloy-config.alloy:/etc/alloy/config.alloy:ro
+      - ../data/real-telemetry/backend.log:/var/log/ai-it-helpdesk/backend.log:ro
+      - alloy_data:/var/lib/alloy/data
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:13.2.2
+    profiles: ["observability"]
+    depends_on:
+      - prometheus
+      - loki
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-local-only-change-me}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  qdrant_data:
+  prometheus_data:
+  loki_data:
+  grafana_data:
+  alloy_data:

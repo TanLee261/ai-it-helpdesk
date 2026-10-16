@@ -1,0 +1,637 @@
+{
+  "benchmark": "E1 BM25 keyword baseline",
+  "created_at": "2026-10-14T15:45:44.130434+00:00",
+  "eval_path": "/Users/duytan/orca/projects/IT_helpdesk/ai-it-helpdesk/data/eval/evaluation_queries.jsonl",
+  "split": "test",
+  "top_k": 10,
+  "candidate_k": 50,
+  "query_count": 24,
+  "metrics": {
+    "recall_at_5": 0.5833333333333333,
+    "recall_at_10": 0.6944444444444444,
+    "precision_at_5": 0.30833333333333335,
+    "mrr_at_10": 0.7872023809523809,
+    "ndcg_at_5": 0.587853637800723
+  },
+  "notes": [
+    "Evaluation uses available evidence only: runbook documents and historical ticket documents.",
+    "Log and metric evidence IDs are excluded until those sources are ingested as knowledge documents."
+  ],
+  "per_query": [
+    {
+      "eval_id": "EV-0043-1",
+      "incident_id": "INC-0043",
+      "expected_available_ids": [
+        "KT-TCK-01018",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-01018",
+        "KT-TCK-04951",
+        "KT-TCK-00995",
+        "KT-TCK-01264",
+        "KT-TCK-01037",
+        "KT-TCK-02870",
+        "KT-TCK-08319",
+        "KT-TCK-01656",
+        "RB-DB-007",
+        "KT-TCK-00547"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 1.0,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0043-2",
+      "incident_id": "INC-0043",
+      "expected_available_ids": [
+        "KT-TCK-01018",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-01018",
+        "KT-TCK-04951",
+        "KT-TCK-00995",
+        "KT-TCK-01264",
+        "KT-TCK-01037",
+        "KT-TCK-08319",
+        "KT-TCK-02870",
+        "KT-TCK-01656",
+        "KT-TCK-00547",
+        "KT-TCK-02276"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 0.5,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0043-3",
+      "incident_id": "INC-0043",
+      "expected_available_ids": [
+        "KT-TCK-01018",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "RB-DB-007",
+        "KT-TCK-06000",
+        "KT-TCK-00995",
+        "KT-TCK-01018",
+        "KT-TCK-04951",
+        "KT-TCK-01037",
+        "KT-TCK-01264",
+        "KT-TCK-02276",
+        "KT-TCK-04388",
+        "KT-TCK-00547"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.8772153153380493
+    },
+    {
+      "eval_id": "EV-0044-1",
+      "incident_id": "INC-0044",
+      "expected_available_ids": [
+        "KT-TCK-00023",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-00317",
+        "KT-TCK-07084",
+        "KT-TCK-05486",
+        "KT-TCK-03717",
+        "KT-TCK-07317",
+        "KT-TCK-02343",
+        "KT-TCK-01833"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.7653606369886217
+    },
+    {
+      "eval_id": "EV-0044-2",
+      "incident_id": "INC-0044",
+      "expected_available_ids": [
+        "KT-TCK-00023",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-00317",
+        "KT-TCK-05486",
+        "KT-TCK-01833",
+        "KT-TCK-07317",
+        "KT-TCK-05334",
+        "KT-TCK-03717",
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-02343"
+      ],
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.0,
+      "mrr_at_10": 0.14285714285714285,
+      "ndcg_at_5": 0.0
+    },
+    {
+      "eval_id": "EV-0044-3",
+      "incident_id": "INC-0044",
+      "expected_available_ids": [
+        "KT-TCK-00023",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-06124",
+        "KT-TCK-01796",
+        "KT-TCK-00735",
+        "KT-TCK-08922",
+        "KT-TCK-09840",
+        "KT-TCK-05774",
+        "KT-TCK-04160"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.7653606369886217
+    },
+    {
+      "eval_id": "EV-0045-1",
+      "incident_id": "INC-0045",
+      "expected_available_ids": [
+        "KT-TCK-00193",
+        "RB-DB-001",
+        "RB-DB-003"
+      ],
+      "retrieved_ids": [
+        "RB-DB-008",
+        "RB-DB-003",
+        "RB-DB-006",
+        "RB-DB-001",
+        "RB-DB-005",
+        "KT-TCK-05505",
+        "KT-TCK-04239",
+        "KT-TCK-00567",
+        "KT-TCK-01266",
+        "KT-TCK-05742"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.49818925746641285
+    },
+    {
+      "eval_id": "EV-0045-2",
+      "incident_id": "INC-0045",
+      "expected_available_ids": [
+        "KT-TCK-00193",
+        "RB-DB-001",
+        "RB-DB-003"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-05505",
+        "RB-DB-003",
+        "KT-TCK-01266",
+        "KT-TCK-03765",
+        "KT-TCK-04239",
+        "KT-TCK-06317",
+        "KT-TCK-04564",
+        "KT-TCK-00567",
+        "KT-TCK-05742",
+        "RB-DB-008"
+      ],
+      "recall_at_5": 0.3333333333333333,
+      "recall_at_10": 0.3333333333333333,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.2960819109658652
+    },
+    {
+      "eval_id": "EV-0045-3",
+      "incident_id": "INC-0045",
+      "expected_available_ids": [
+        "KT-TCK-00193",
+        "RB-DB-001",
+        "RB-DB-003"
+      ],
+      "retrieved_ids": [
+        "RB-DB-008",
+        "RB-DB-003",
+        "RB-DB-006",
+        "RB-DB-001",
+        "RB-DB-005",
+        "KT-TCK-02738",
+        "KT-TCK-00060",
+        "KT-TCK-00259",
+        "KT-TCK-06358",
+        "KT-TCK-08201"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.49818925746641285
+    },
+    {
+      "eval_id": "EV-0046-1",
+      "incident_id": "INC-0046",
+      "expected_available_ids": [
+        "KT-TCK-01037",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-01037",
+        "KT-TCK-00995",
+        "KT-TCK-04951",
+        "KT-TCK-08319",
+        "KT-TCK-01264",
+        "KT-TCK-02870",
+        "RB-DB-007",
+        "KT-TCK-01018",
+        "KT-TCK-06000",
+        "KT-TCK-02276"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 1.0,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0046-2",
+      "incident_id": "INC-0046",
+      "expected_available_ids": [
+        "KT-TCK-01037",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-01037",
+        "KT-TCK-00995",
+        "KT-TCK-04951",
+        "KT-TCK-08319",
+        "KT-TCK-01264",
+        "KT-TCK-02870",
+        "KT-TCK-01018",
+        "KT-TCK-06000",
+        "KT-TCK-02276",
+        "KT-TCK-04797"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 0.5,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0046-3",
+      "incident_id": "INC-0046",
+      "expected_available_ids": [
+        "KT-TCK-01037",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "RB-DB-007",
+        "KT-TCK-06000",
+        "KT-TCK-00995",
+        "KT-TCK-01018",
+        "KT-TCK-04951",
+        "KT-TCK-01037",
+        "KT-TCK-01264",
+        "KT-TCK-02276",
+        "KT-TCK-04388",
+        "KT-TCK-00547"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 1.0,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0047-1",
+      "incident_id": "INC-0047",
+      "expected_available_ids": [
+        "KT-TCK-00036",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-06579",
+        "KT-TCK-00941",
+        "KT-TCK-07084",
+        "KT-TCK-03717",
+        "KT-TCK-00055",
+        "KT-TCK-05349",
+        "KT-TCK-08532"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.7653606369886217
+    },
+    {
+      "eval_id": "EV-0047-2",
+      "incident_id": "INC-0047",
+      "expected_available_ids": [
+        "KT-TCK-00036",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-06579",
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-08556",
+        "KT-TCK-01439",
+        "KT-TCK-09411",
+        "KT-TCK-03717",
+        "KT-TCK-06069",
+        "KT-TCK-05334"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.5307212739772434
+    },
+    {
+      "eval_id": "EV-0047-3",
+      "incident_id": "INC-0047",
+      "expected_available_ids": [
+        "KT-TCK-00036",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-06124",
+        "KT-TCK-01796",
+        "KT-TCK-00735",
+        "KT-TCK-08922",
+        "KT-TCK-09840",
+        "KT-TCK-05774",
+        "KT-TCK-04160"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.7653606369886217
+    },
+    {
+      "eval_id": "EV-0048-1",
+      "incident_id": "INC-0048",
+      "expected_available_ids": [
+        "KT-TCK-00543",
+        "RB-DB-001",
+        "RB-DB-003"
+      ],
+      "retrieved_ids": [
+        "RB-DB-008",
+        "RB-DB-003",
+        "RB-DB-006",
+        "RB-DB-001",
+        "RB-DB-005",
+        "KT-TCK-00617",
+        "KT-TCK-05544",
+        "KT-TCK-07386",
+        "KT-TCK-08845",
+        "KT-TCK-03449"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.49818925746641285
+    },
+    {
+      "eval_id": "EV-0048-2",
+      "incident_id": "INC-0048",
+      "expected_available_ids": [
+        "KT-TCK-00543",
+        "RB-DB-001",
+        "RB-DB-003"
+      ],
+      "retrieved_ids": [
+        "RB-DB-005",
+        "KT-TCK-05544",
+        "KT-TCK-00617",
+        "RB-DB-003",
+        "RB-DB-001",
+        "RB-DB-008",
+        "RB-DB-006",
+        "KT-TCK-07386",
+        "KT-TCK-01266",
+        "KT-TCK-08845"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.25,
+      "ndcg_at_5": 0.38364913903790027
+    },
+    {
+      "eval_id": "EV-0048-3",
+      "incident_id": "INC-0048",
+      "expected_available_ids": [
+        "KT-TCK-00543",
+        "RB-DB-001",
+        "RB-DB-003"
+      ],
+      "retrieved_ids": [
+        "RB-DB-008",
+        "RB-DB-003",
+        "RB-DB-006",
+        "RB-DB-001",
+        "RB-DB-005",
+        "KT-TCK-02738",
+        "KT-TCK-00060",
+        "KT-TCK-00259",
+        "KT-TCK-06358",
+        "KT-TCK-08201"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.49818925746641285
+    },
+    {
+      "eval_id": "EV-0049-1",
+      "incident_id": "INC-0049",
+      "expected_available_ids": [
+        "KT-TCK-01264",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-01264",
+        "KT-TCK-08319",
+        "KT-TCK-00995",
+        "KT-TCK-01018",
+        "KT-TCK-01037",
+        "KT-TCK-04951",
+        "KT-TCK-02276",
+        "KT-TCK-06000",
+        "KT-TCK-04973",
+        "KT-TCK-01559"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 0.5,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0049-2",
+      "incident_id": "INC-0049",
+      "expected_available_ids": [
+        "KT-TCK-01264",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-01264",
+        "KT-TCK-08319",
+        "KT-TCK-00995",
+        "KT-TCK-01018",
+        "KT-TCK-01037",
+        "KT-TCK-04951",
+        "KT-TCK-02276",
+        "KT-TCK-06000",
+        "KT-TCK-04973",
+        "KT-TCK-01559"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 0.5,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0049-3",
+      "incident_id": "INC-0049",
+      "expected_available_ids": [
+        "KT-TCK-01264",
+        "RB-DB-007"
+      ],
+      "retrieved_ids": [
+        "RB-DB-007",
+        "KT-TCK-06000",
+        "KT-TCK-00995",
+        "KT-TCK-01018",
+        "KT-TCK-04951",
+        "KT-TCK-01037",
+        "KT-TCK-01264",
+        "KT-TCK-02276",
+        "KT-TCK-04388",
+        "KT-TCK-00547"
+      ],
+      "recall_at_5": 0.5,
+      "recall_at_10": 1.0,
+      "precision_at_5": 0.2,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.6131471927654584
+    },
+    {
+      "eval_id": "EV-0050-1",
+      "incident_id": "INC-0050",
+      "expected_available_ids": [
+        "KT-TCK-00055",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-02461",
+        "KT-TCK-07084",
+        "KT-TCK-06952",
+        "KT-TCK-00512",
+        "KT-TCK-05442",
+        "KT-TCK-04740",
+        "KT-TCK-01558"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.7653606369886217
+    },
+    {
+      "eval_id": "EV-0050-2",
+      "incident_id": "INC-0050",
+      "expected_available_ids": [
+        "KT-TCK-00055",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "KT-TCK-02461",
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-09411",
+        "KT-TCK-05334",
+        "KT-TCK-06952",
+        "KT-TCK-05442",
+        "KT-TCK-04740",
+        "KT-TCK-01558"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 0.5,
+      "ndcg_at_5": 0.5307212739772434
+    },
+    {
+      "eval_id": "EV-0050-3",
+      "incident_id": "INC-0050",
+      "expected_available_ids": [
+        "KT-TCK-00055",
+        "RB-DB-002",
+        "RB-DB-004"
+      ],
+      "retrieved_ids": [
+        "RB-DB-004",
+        "RB-DB-002",
+        "RB-DB-009",
+        "KT-TCK-06124",
+        "KT-TCK-01796",
+        "KT-TCK-00735",
+        "KT-TCK-08922",
+        "KT-TCK-09840",
+        "KT-TCK-05774",
+        "KT-TCK-04160"
+      ],
+      "recall_at_5": 0.6666666666666666,
+      "recall_at_10": 0.6666666666666666,
+      "precision_at_5": 0.4,
+      "mrr_at_10": 1.0,
+      "ndcg_at_5": 0.7653606369886217
+    }
+  ]
+}

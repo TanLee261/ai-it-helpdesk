@@ -1,0 +1,13 @@
+experiment: e3_hybrid_rrf
+method: hybrid
+keyword: bm25
+dense_model: BAAI/bge-m3
+fusion: reciprocal_rank_fusion
+rrf_k: 60
+candidate_k: 100
+output_top_k: 10
+tuned_on: v2_dev
+evaluated_on: v2_test
+evidence_sources:
+  - historical_ticket
+  - runbook

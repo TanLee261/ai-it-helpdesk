@@ -1,0 +1,40 @@
+@startuml UC04_Tim_Evidence
+title UC04 - Tìm evidence bằng Hybrid RAG
+start
+|Kỹ thuật viên|
+:Nhập mô tả ticket hoặc câu hỏi;
+|Hệ thống|
+:Query Understanding
+(intent, service, thời gian, thực thể);
+if (Intent đủ tin cậy?) then (không)
+  :Hỏi lại người dùng để làm rõ;
+  |Kỹ thuật viên|
+  :Bổ sung thông tin;
+  stop
+else (có)
+  :Query Rewriting
+  (truy vấn độc lập, không thêm nguyên nhân);
+  :Áp filter metadata và access_scope;
+  fork
+    :BM25 / TF-IDF top-20;
+  fork again
+    :Dense Retrieval top-20 (Qdrant);
+  end fork
+  if (Một nhánh không khả dụng?) then (có)
+    :Dùng nhánh còn lại,
+    đánh dấu kết quả không đầy đủ;
+  else (không)
+    :Hợp nhất bằng RRF;
+  endif
+  :Cross-Encoder rerank top-20;
+  :Lọc top-k;
+  if (Có evidence đạt ngưỡng?) then (không)
+    :Thông báo thiếu bằng chứng;
+  else (có)
+    :Trả về top-k evidence
+    kèm evidence_id và nguồn;
+  endif
+  :Ghi audit log truy vấn;
+endif
+stop
+@enduml

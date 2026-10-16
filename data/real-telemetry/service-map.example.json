@@ -1,0 +1,5 @@
+{
+  "payments-prod": "payment-api",
+  "prod/payment-worker": "payment-api",
+  "postgres-reporting-prod": "reporting-db"
+}

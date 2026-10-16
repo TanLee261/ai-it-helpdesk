@@ -1,0 +1,37 @@
+@startuml UC08_Dashboard
+title UC08 - Xem dashboard vận hành
+start
+|Trưởng nhóm / Admin|
+:Mở Dashboard;
+:Chọn khoảng thời gian và bộ lọc;
+|Hệ thống|
+if (Có quyền xem?) then (không)
+  :Từ chối truy cập;
+  stop
+else (có)
+  fork
+    :Tổng hợp ticket và SLA;
+  fork again
+    :Tổng hợp incident
+    theo service và category;
+  fork again
+    :Tổng hợp latency và
+    chất lượng retrieval/RCA;
+  end fork
+  if (Có dữ liệu trong khoảng chọn?) then (không)
+    :Hiển thị trạng thái rỗng
+    và gợi ý khoảng khác;
+  else (có)
+    if (Tổng hợp quá thời gian cho phép?) then (có)
+      :Hiển thị dữ liệu đã có
+      kèm thời điểm cập nhật;
+    else (không)
+      :Hiển thị biểu đồ và bảng thống kê;
+    endif
+  endif
+  :Ghi audit log truy cập;
+endif
+|Trưởng nhóm / Admin|
+:Xem thống kê vận hành;
+stop
+@enduml

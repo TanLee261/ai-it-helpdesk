@@ -1,0 +1,16 @@
+loki.source.file "helpdesk_api" {
+  targets = [
+    {
+      "__path__"   = "/var/log/ai-it-helpdesk/backend.log",
+      "service"    = "ai-it-helpdesk-api",
+      "environment" = "local",
+    },
+  ]
+  forward_to = [loki.write.local.receiver]
+}
+
+loki.write "local" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

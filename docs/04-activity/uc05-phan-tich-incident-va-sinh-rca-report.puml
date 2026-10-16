@@ -1,0 +1,37 @@
+@startuml UC05_Phan_Tich_RCA
+title UC05 - Phân tích incident và sinh RCA report
+start
+|Kỹ thuật viên|
+:Chọn ticket và yêu cầu phân tích;
+|Hệ thống|
+:Lấy thông tin ticket hiện tại;
+:Thực hiện UC04 lấy evidence;
+:Lọc log và metrics
+theo service + time window;
+:Xây prompt grounded
+(chỉ chứa evidence đã lọc);
+:Gọi LLM sinh structured JSON;
+if (LLM phản hồi đúng schema?) then (không)
+  :Thử lại tối đa một lần;
+  if (Vẫn lỗi?) then (có)
+    :Báo không tạo được báo cáo;
+    stop
+  endif
+endif
+:Evidence Validation:
+kiểm tra evidence ID;
+if (Có claim không có nguồn?) then (có)
+  :Loại bỏ claim không được hỗ trợ;
+endif
+if (Còn claim hợp lệ?) then (không)
+  :Chỉ hiển thị observed facts
+  và yêu cầu thêm dữ liệu;
+else (có)
+  :Đánh dấu missing evidence;
+endif
+:Lưu analysis vào PostgreSQL;
+:Ghi audit log;
+|Kỹ thuật viên|
+:Xem báo cáo RCA;
+stop
+@enduml
